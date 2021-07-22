@@ -2,39 +2,34 @@ const { Telegraf } = require('telegraf')
 
 const bot = new Telegraf('1895899439:AAGq3yivTVoApAG5NLAyddj_zUZBjbI3gxI') //bujigua_bot
 
-const helpMessage = `
-  Say something to me
-  /start - start the bot
-  /help - command reference
-`
-
-bot.use((ctx, next) => {
-  console.log(ctx.message.sticker)
-  // if (ctx.updateSubTypes[0] === 'text') {
-  //   console.log(ctx.from.username + ' said ' + ctx.message.text)
-  // } else {
-  //   console.log(ctx.from.username + ' sent ' + ctx.updateSubTypes[0]);
-  // }
-  next()
+bot.command('newyork', ctx => {
+  bot.telegram.sendChatAction(ctx.chat.id, 'upload_photo')
+  bot.telegram.sendPhoto(ctx.chat.id, 
+    { source: 'img/1.jpg' },
+    { reply_to_message_id: ctx.message.message_id }
+  )
 })
 
-bot.start(ctx => {
-  ctx.reply('Hello epta')
-  ctx.reply(helpMessage)
+bot.command('cities', ctx => {
+  bot.telegram.sendMediaGroup(ctx.chat.id, [
+    {
+      type: 'photo',
+      media: { source: 'img/2.jpg'}
+    },
+    {
+      type: 'photo',
+      media: { source: 'img/4.jpg'}
+    },
+  ])
 })
 
-bot.help(ctx => {
-  ctx.reply(helpMessage)
-})
-
-bot.command('echo', ctx => {
-  let input = ctx.message.text
-  let inputArray = input.split(' ')
-  if (inputArray.length === 1) return ctx.reply('You said /echo')
-
-  inputArray.shift()
-  const message = inputArray.join(' ')
-  ctx.reply(message)
+bot.command('citieslist', ctx => {
+  bot.telegram.sendDocument(ctx.chat.id, {
+    source: './bot.js'
+  }, 
+  {
+    thumb: { source: 'img/5.jpeg' }
+  })
 })
 
 bot.launch()
