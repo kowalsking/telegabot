@@ -25,11 +25,22 @@ bot.command('cities', ctx => {
 
 bot.command('citieslist', ctx => {
   bot.telegram.sendDocument(ctx.chat.id, {
-    source: './bot.js'
+    source: './bot.js' //should be some txt file
   }, 
   {
     thumb: { source: 'img/5.jpeg' }
   })
+})
+
+bot.command('singapore', ctx => {
+  bot.telegram.sendLocation(ctx.chat.id, 1.3521, 103.8198)
+})
+
+bot.on('message', async ctx => {
+  if (ctx.message.document) {
+    let link = await bot.telegram.getFileLink(ctx.message.document.file_id)
+    ctx.reply('Your download link: ' + link)
+  }
 })
 
 bot.launch()
