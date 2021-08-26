@@ -22,6 +22,10 @@ bot.command('cat', async ctx => {
   if (inputArray.length == 1) {
     let res = await axios.get('https://aws.random.cat/meow')
     ctx.replyWithPhoto(res.data.file)
+  } else {
+    inputArray.shift()
+    input = inputArray.join(' ')
+    ctx.replyWithPhoto(`https://cataas.com/cat/says/${input}`)
   }
 })
 
