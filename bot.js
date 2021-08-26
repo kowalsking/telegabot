@@ -14,4 +14,15 @@ bot.command('fortune', ctx => {
   })
 })
 
+bot.command('cat', async ctx => {
+  let input = ctx.message.text
+  let inputArray = input.split(' ')
+
+  // '/cat'
+  if (inputArray.length == 1) {
+    let res = await axios.get('https://aws.random.cat/meow')
+    ctx.replyWithPhoto(res.data.file)
+  }
+})
+
 bot.launch()
