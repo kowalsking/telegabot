@@ -7,16 +7,20 @@ const fs = require('fs')
 
 const helpMessage = 
 `
-Simple API Bot
+*Simple API Bot*
 /fortune - get a fortune cookie
 /cat - get a random cat pic
-/cat <text> - get cat image with text
+/cat \`<text>\` - get cat image with text
 /dogbreeds - get a list of dog breeds
-/dog <breed> - get image of dog breed
+/dog \`<breed>\` - get image of dog breed
 `
 
 bot.help(ctx => {
-  ctx.reply(helpMessage)
+  // ctx.reply(helpMessage)
+  bot.telegram.sendMessage(ctx.from.id, helpMessage, {
+    parse_mode: 'Markdown'
+
+  })
 })
 
 bot.command('fortune', ctx => {
