@@ -98,4 +98,12 @@ bot.command('info', ctx => {
   })
 })
 
+bot.hears('Credits', ctx => {
+  ctx.reply('This bot was made by @name')
+})
+
+bot.hears('API', ctx => {
+  ctx.reply('This bot uses cryptocompare API')
+})
+
 bot.launch()
